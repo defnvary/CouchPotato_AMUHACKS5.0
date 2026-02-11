@@ -8,6 +8,13 @@ const AdminDashboard = () => {
     const [loading, setLoading] = useState(true);
     const [users, setUsers] = useState([]);
     const [stats, setStats] = useState({ totalUsers: 0, students: 0, teachers: 0, highRisk: 0 });
+    const [showAddUserModal, setShowAddUserModal] = useState(false);
+    const [newUserData, setNewUserData] = useState({
+        name: '',
+        email: '',
+        password: '',
+        role: 'student'
+    });
 
     useEffect(() => {
         fetchData();
@@ -31,6 +38,33 @@ const AdminDashboard = () => {
             console.error(error);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleAddUser = async (e) => {
+        e.preventDefault();
+        try {
+            // In a real app, call the API to create user
+            // await api.post('/admin/users', newUserData);
+
+            // For demo, just add to local state
+            const newUser = {
+                _id: Date.now().toString(),
+                ...newUserData
+            };
+            setUsers([...users, newUser]);
+            setStats(prev => ({
+                ...prev,
+                totalUsers: prev.totalUsers + 1,
+                students: newUserData.role === 'student' ? prev.students + 1 : prev.students,
+                teachers: newUserData.role === 'teacher' ? prev.teachers + 1 : prev.teachers
+            }));
+
+            // Reset form and close modal
+            setNewUserData({ name: '', email: '', password: '', role: 'student' });
+            setShowAddUserModal(false);
+        } catch (error) {
+            console.error('Error adding user:', error);
         }
     };
 
@@ -126,7 +160,10 @@ const AdminDashboard = () => {
                         </table>
                     </div>
                     <div className="mt-4">
-                        <button className="px-4 py-2 bg-sage-700 text-white rounded text-sm hover:bg-sage-800 transition-all hover:scale-105 hover:shadow-md">
+                        <button
+                            onClick={() => setShowAddUserModal(true)}
+                            className="px-4 py-2 bg-sage-700 text-white rounded text-sm hover:bg-sage-800 transition-all hover:scale-105 hover:shadow-md"
+                        >
                             Add New User
                         </button>
                     </div>
@@ -151,6 +188,84 @@ const AdminDashboard = () => {
                     </div>
                 </section>
             </main>
+
+            {/* Add User Modal */}
+            {showAddUserModal && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                    <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6 animate-slideUp">
+                        <h2 className="text-xl font-serif font-bold text-academic-900 mb-4">Add New User</h2>
+
+                        <form onSubmit={handleAddUser} className="space-y-4">
+                            <div>
+                                <label className="block text-sm font-medium text-academic-700 mb-1">Full Name</label>
+                                <input
+                                    type="text"
+                                    value={newUserData.name}
+                                    onChange={(e) => setNewUserData({ ...newUserData, name: e.target.value })}
+                                    className="w-full px-3 py-2 border border-academic-300 rounded-md focus:outline-none focus:ring-1 focus:ring-sage-500"
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-academic-700 mb-1">Email</label>
+                                <input
+                                    type="email"
+                                    value={newUserData.email}
+                                    onChange={(e) => setNewUserData({ ...newUserData, email: e.target.value })}
+                                    className="w-full px-3 py-2 border border-academic-300 rounded-md focus:outline-none focus:ring-1 focus:ring-sage-500"
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-academic-700 mb-1">Password</label>
+                                <input
+                                    type="password"
+                                    value={newUserData.password}
+                                    onChange={(e) => setNewUserData({ ...newUserData, password: e.target.value })}
+                                    className="w-full px-3 py-2 border border-academic-300 rounded-md focus:outline-none focus:ring-1 focus:ring-sage-500"
+                                    required
+                                    minLength={6}
+                                />
+                                <p className="text-xs text-academic-500 mt-1">Minimum 6 characters</p>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-academic-700 mb-1">Role</label>
+                                <select
+                                    value={newUserData.role}
+                                    onChange={(e) => setNewUserData({ ...newUserData, role: e.target.value })}
+                                    className="w-full px-3 py-2 border border-academic-300 rounded-md focus:outline-none focus:ring-1 focus:ring-sage-500"
+                                >
+                                    <option value="student">Student</option>
+                                    <option value="teacher">Teacher</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                            </div>
+
+                            <div className="flex gap-3 mt-6">
+                                <button
+                                    type="submit"
+                                    className="flex-1 px-4 py-2 bg-sage-700 text-white rounded hover:bg-sage-800 transition-all hover:scale-105 hover:shadow-md"
+                                >
+                                    Create User
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setShowAddUserModal(false);
+                                        setNewUserData({ name: '', email: '', password: '', role: 'student' });
+                                    }}
+                                    className="px-4 py-2 bg-academic-200 text-academic-700 rounded hover:bg-academic-300 transition-colors"
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
