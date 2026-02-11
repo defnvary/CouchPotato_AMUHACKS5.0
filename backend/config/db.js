@@ -5,15 +5,20 @@ let mongod = null;
 
 const connectDB = async () => {
     try {
-        // Try to start Memory Server
-        try {
-            mongod = await MongoMemoryServer.create();
-            uri = mongod.getUri();
-            console.log(`MongoDB Memory Server started at ${uri}`);
-        } catch (err) {
-            console.error("Failed to start MongoDB Memory Server (Network Issue?). Falling back to local MongoDB.");
-            console.error(err.message);
-            uri = 'mongodb://localhost:27017/rebound';
+        if (process.env.MONGO_URI) {
+            console.log('Using configured MongoDB URI...');
+            uri = process.env.MONGO_URI;
+        } else {
+            // Try to start Memory Server
+            try {
+                mongod = await MongoMemoryServer.create();
+                uri = mongod.getUri();
+                console.log(`MongoDB Memory Server started at ${uri}`);
+            } catch (err) {
+                console.error("Failed to start MongoDB Memory Server (Network Issue?). Falling back to local MongoDB.");
+                console.error(err.message);
+                uri = 'mongodb://localhost:27017/rebound';
+            }
         }
 
         const conn = await mongoose.connect(uri);
