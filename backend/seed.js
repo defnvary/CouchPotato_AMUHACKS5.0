@@ -22,21 +22,21 @@ const seedData = async () => {
         const admin = await User.create({
             name: 'Admin User',
             email: 'admin@rebound.edu',
-            password: 'password123',
+            password: 'Password@123',
             role: 'admin'
         });
 
         const teacher = await User.create({
             name: 'Prof. Albus',
             email: 'teacher@rebound.edu',
-            password: 'password123',
+            password: 'Password@123',
             role: 'teacher'
         });
 
         const student = await User.create({
             name: 'Harry Potter',
             email: 'student@rebound.edu',
-            password: 'password123',
+            password: 'Password@123',
             role: 'student',
             assignedTeacher: teacher._id
         });

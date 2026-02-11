@@ -86,8 +86,8 @@ const Login = () => {
 
                 <div className="mt-4 text-center text-xs text-academic-400">
                     <p>Demo Credentials:</p>
-                    <p>Student: student@rebound.edu / password123</p>
-                    <p>Teacher: teacher@rebound.edu / password123</p>
+                    <p>Student: student@rebound.edu / Password@123</p>
+                    <p>Teacher: teacher@rebound.edu / Password@123</p>
                 </div>
 
                 <div className="mt-4 text-center text-sm text-academic-500">

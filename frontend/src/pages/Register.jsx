@@ -168,8 +168,8 @@ const Register = () => {
 
                 <div className="mt-4 text-xs text-academic-400 text-center">
                     Demo Credentials:<br />
-                    Student: student@rebound.edu / password123<br />
-                    Teacher: teacher@rebound.edu / password123
+                    Student: student@rebound.edu / Password@123<br />
+                    Teacher: teacher@rebound.edu / Password@123
                 </div>
             </div>
         </div>

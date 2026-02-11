@@ -85,9 +85,9 @@ Students today face a dual crisis: **Overwhelming Academics** and **Mental Healt
 
 You can use these pre-configured accounts to explore the platform:
 
-*   **Student**: `student@rebound.edu` / `password123`
-*   **Teacher**: `teacher@rebound.edu` / `password123`
-*   **Admin**:   `admin@rebound.edu`   / `password123`
+*   **Student**: `student@rebound.edu` / `Password@123`
+*   **Teacher**: `teacher@rebound.edu` / `Password@123`
+*   **Admin**:   `admin@rebound.edu`   / `Password@123`
 
 ---
 
