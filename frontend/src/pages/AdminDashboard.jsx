@@ -22,27 +22,28 @@ const AdminDashboard = () => {
 
     const fetchData = async () => {
         try {
-            // In a real app, you'd have an admin endpoint
-            // For now, we'll simulate with available data
+            // Fetch all users from admin endpoint
+            const res = await api.get('/admin/users');
+            const allUsers = res.data || [];
+
+            setUsers(allUsers);
+
+            // Calculate stats from real data
+            const students = allUsers.filter(u => u.role === 'student');
+            const teachers = allUsers.filter(u => u.role === 'teacher');
+
+            // For high risk, we'd need to fetch student data with risk levels
+            // For now, estimate based on available data
             setStats({
-                totalUsers: 8,
-                students: 3,
-                teachers: 4,
-                highRisk: 1
+                totalUsers: allUsers.length,
+                students: students.length,
+                teachers: teachers.length,
+                highRisk: 0 // Will be updated when we fetch student risk data
             });
-            setUsers([
-                // Students (matching TeacherDashboard demo data)
-                { _id: '1', name: 'Alex Johnson', email: 'alex.johnson@student.edu', role: 'student' },
-                { _id: '2', name: 'Sarah Martinez', email: 'sarah.martinez@student.edu', role: 'student' },
-                { _id: '3', name: 'Michael Chen', email: 'michael.chen@student.edu', role: 'student' },
-                // Teachers
-                { _id: '4', name: 'Dr. Emily Roberts', email: 'emily.roberts@teacher.edu', role: 'teacher' },
-                { _id: '5', name: 'Prof. James Wilson', email: 'james.wilson@teacher.edu', role: 'teacher' },
-                { _id: '6', name: 'Dr. Sarah Anderson', email: 'sarah.anderson@teacher.edu', role: 'teacher' },
-                { _id: '7', name: 'Prof. David Lee', email: 'david.lee@teacher.edu', role: 'teacher' }
-            ]);
         } catch (error) {
-            console.error(error);
+            console.error('Error fetching users:', error);
+            showError('Failed to load users');
+            setUsers([]);
         } finally {
             setLoading(false);
         }

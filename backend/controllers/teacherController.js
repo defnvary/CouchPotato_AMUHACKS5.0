@@ -12,11 +12,9 @@ const getStudents = async (req, res) => {
     try {
         const teacherId = req.user._id;
 
-        // Find students assigned to this teacher
-        // Note: In real app, we might query User.find({ assignedTeacher: teacherId })
-        // or check teacher.assignedStudents.
-        // Let's assume User model has 'assignedTeacher' field.
-        const students = await User.find({ assignedTeacher: teacherId }).select('-password');
+        // For demo/hackathon: show all students
+        // In production, you'd filter by: { assignedTeacher: teacherId }
+        const students = await User.find({ role: 'student' }).select('-password');
 
         const studentData = [];
 
