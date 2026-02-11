@@ -13,7 +13,8 @@ const {
     getProgress,
     breakdownTaskEndpoint,
     getPerspective,
-    getWorkload
+    getWorkload,
+    getMessages
 } = require('../controllers/studentController');
 const { protect } = require('../middleware/authMiddleware');
 const { taskValidation, subjectValidation, stressLogValidation } = require('../middleware/validationMiddleware');
@@ -21,6 +22,7 @@ const { taskValidation, subjectValidation, stressLogValidation } = require('../m
 router.get('/dashboard', protect, getDashboard);
 router.get('/progress', protect, getProgress);
 router.get('/workload', protect, getWorkload);
+router.get('/messages', protect, getMessages);
 router.post('/log', protect, stressLogValidation, reportDailyLog);
 
 // Goblin Tools Features

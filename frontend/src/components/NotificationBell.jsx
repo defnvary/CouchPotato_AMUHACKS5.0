@@ -1,31 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Bell, X, MessageSquare } from 'lucide-react';
+import api from '../utils/api';
 
 const NotificationBell = ({ messages = [] }) => {
     const [showDropdown, setShowDropdown] = useState(false);
-    const unreadCount = messages.filter(m => !m.read).length;
+    const [realMessages, setRealMessages] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-    // Demo messages for hackathon
-    const demoMessages = messages.length > 0 ? messages : [
-        {
-            _id: '1',
-            from: 'Dr. Emily Roberts',
-            subject: 'Check-in',
-            message: 'Hi! I noticed your stress levels have been high lately. Let\'s schedule a quick chat to discuss how I can support you.',
-            type: 'check-in',
-            timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
-            read: false
-        },
-        {
-            _id: '2',
-            from: 'Prof. James Wilson',
-            subject: 'Great Progress!',
-            message: 'I\'m really impressed with your recent assignment submission. Keep up the excellent work!',
-            type: 'message',
-            timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000), // 1 day ago
-            read: true
+    useEffect(() => {
+        if (showDropdown) {
+            fetchMessages();
         }
-    ];
+    }, [showDropdown]);
+
+    const fetchMessages = async () => {
+        setLoading(true);
+        try {
+            const res = await api.get('/student/messages');
+            setRealMessages(res.data || []);
+        } catch (error) {
+            console.error('Error fetching messages:', error);
+            setRealMessages([]);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const unreadCount = realMessages.filter(m => !m.read).length;
 
     const formatTime = (timestamp) => {
         const now = new Date();
@@ -81,14 +82,18 @@ const NotificationBell = ({ messages = [] }) => {
                             </button>
                         </div>
 
-                        {demoMessages.length === 0 ? (
+                        {loading ? (
+                            <div className="p-6 text-center text-academic-500">
+                                <p className="text-sm">Loading messages...</p>
+                            </div>
+                        ) : realMessages.length === 0 ? (
                             <div className="p-6 text-center text-academic-500">
                                 <MessageSquare className="mx-auto mb-2 opacity-50" size={32} />
                                 <p className="text-sm">No messages yet</p>
                             </div>
                         ) : (
                             <div className="divide-y divide-academic-100">
-                                {demoMessages.map((msg) => (
+                                {realMessages.map((msg) => (
                                     <div
                                         key={msg._id}
                                         className={`p-3 hover:bg-academic-50 transition-colors ${!msg.read ? 'bg-blue-50/30' : ''
@@ -97,10 +102,10 @@ const NotificationBell = ({ messages = [] }) => {
                                         <div className="flex items-start justify-between mb-1">
                                             <div className="flex-1">
                                                 <p className="text-sm font-semibold text-academic-900">
-                                                    {msg.from}
+                                                    {msg.from?.name || 'Teacher'}
                                                 </p>
                                                 <p className="text-xs text-academic-500">
-                                                    {formatTime(msg.timestamp)}
+                                                    {formatTime(msg.createdAt)}
                                                 </p>
                                             </div>
                                             <span className={`text-xs px-2 py-0.5 rounded border ${getTypeColor(msg.type)}`}>
@@ -118,7 +123,7 @@ const NotificationBell = ({ messages = [] }) => {
                             </div>
                         )}
 
-                        {demoMessages.length > 0 && (
+                        {realMessages.length > 0 && (
                             <div className="p-2 border-t border-academic-200 bg-academic-50">
                                 <button className="w-full text-sm text-sage-700 hover:text-sage-900 font-medium py-1">
                                     View All Messages

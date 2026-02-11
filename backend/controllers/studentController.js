@@ -3,6 +3,7 @@ const Subject = require('../models/Subject');
 const Task = require('../models/Task');
 const DailyLog = require('../models/DailyLog');
 const Progress = require('../models/Progress');
+const Message = require('../models/Message');
 const { calculateRPS, generateRecoveryPlan, assessRisk } = require('../utils/recoveryEngine');
 
 // @desc    Get Student Dashboard Data (Plan, Stress, Tasks)
@@ -319,6 +320,24 @@ const getWorkload = async (req, res) => {
     }
 };
 
+// @desc    Get Messages for Student
+// @route   GET /api/student/messages
+// @access  Private (Student)
+const getMessages = async (req, res) => {
+    try {
+        const studentId = req.user._id;
+
+        // Get all messages sent to this student
+        const messages = await Message.find({ to: studentId })
+            .populate('from', 'name email role')
+            .sort({ createdAt: -1 });
+
+        res.json(messages);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 module.exports = {
     getDashboard,
     reportDailyLog,
@@ -332,5 +351,6 @@ module.exports = {
     getProgress,
     breakdownTaskEndpoint,
     getPerspective,
-    getWorkload
+    getWorkload,
+    getMessages
 };
