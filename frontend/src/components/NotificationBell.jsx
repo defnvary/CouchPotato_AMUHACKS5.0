@@ -25,12 +25,17 @@ const NotificationBell = ({ messages = [] }) => {
     }, [showDropdown]);
 
     const fetchMessages = async () => {
+        console.log('🔔 Fetching messages...');
         setLoading(true);
         try {
             const res = await api.get('/student/messages');
+            console.log('✅ Messages received:', res.data);
+            console.log('📊 Message count:', res.data?.length || 0);
             setRealMessages(res.data || []);
         } catch (error) {
-            console.error('Error fetching messages:', error);
+            console.error('❌ Error fetching messages:', error);
+            console.error('Response:', error.response?.data);
+            console.error('Status:', error.response?.status);
             setRealMessages([]);
         } finally {
             setLoading(false);

@@ -14,21 +14,35 @@ const MessageModal = ({ student, onClose, onSent }) => {
         e.preventDefault();
         setLoading(true);
         try {
+            // Check if user is logged in
+            const token = localStorage.getItem('token');
+            if (!token) {
+                showError('You are not logged in. Please login again.');
+                setLoading(false);
+                return;
+            }
+
             // Try to send via API
-            await api.post('/teacher/message', {
+            const response = await api.post('/teacher/message', {
                 studentId: student._id,
                 subject,
                 message,
                 type
             });
+
+            console.log('✅ Message sent successfully:', response.data);
             onSent?.();
             onClose();
         } catch (error) {
-            console.error(error);
-            // For demo purposes, simulate success even if API fails
-            console.log('Message would be sent:', { student: student.name, subject, message, type });
-            onSent?.();
-            onClose();
+            console.error('❌ Error sending message:', error);
+            console.error('Status:', error.response?.status);
+            console.error('Error data:', error.response?.data);
+
+            if (error.response?.status === 401) {
+                showError('Authentication failed. Please logout and login again as a teacher.');
+            } else {
+                showError('Failed to send message: ' + (error.response?.data?.message || error.message));
+            }
         } finally {
             setLoading(false);
         }
