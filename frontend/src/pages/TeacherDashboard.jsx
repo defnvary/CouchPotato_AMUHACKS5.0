@@ -6,7 +6,7 @@ import MessageModal from '../components/MessageModal';
 import EmptyState from '../components/EmptyState';
 import { SkeletonStudentCard } from '../components/Skeleton';
 import { InfoTooltip } from '../components/Tooltip';
-import { Loader2, AlertCircle, CheckCircle, HelpCircle, MessageSquare, Users } from 'lucide-react';
+import { Loader2, AlertCircle, CheckCircle, HelpCircle, MessageSquare, Users, UserCircle } from 'lucide-react';
 import clsx from 'clsx';
 
 const TeacherDashboard = () => {
@@ -70,7 +70,16 @@ const TeacherDashboard = () => {
                         <h1 className="text-xl font-serif font-bold text-academic-900">Rebound Educator</h1>
                         <p className="text-xs text-academic-500">Instructor Dashboard</p>
                     </div>
-                    <button onClick={logout} className="text-sm text-academic-500 hover:text-red-600">Logout</button>
+                    <div className="flex gap-2 items-center">
+                        <button
+                            onClick={() => window.location.href = '/teacher/profile'}
+                            className="bg-academic-100 text-academic-700 px-3 py-1.5 rounded-md text-sm flex items-center gap-1 hover:bg-academic-200 transition-all hover:scale-105"
+                        >
+                            <UserCircle size={16} />
+                            Profile
+                        </button>
+                        <button onClick={logout} className="text-sm text-academic-500 hover:text-red-600 transition-colors">Logout</button>
+                    </div>
                 </div>
             </header>
 

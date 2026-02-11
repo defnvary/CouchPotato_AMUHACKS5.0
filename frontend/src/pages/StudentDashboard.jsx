@@ -8,7 +8,7 @@ import TaskInput from '../components/TaskInput';
 import ProgressStats from '../components/ProgressStats';
 import EmptyState from '../components/EmptyState';
 import { SkeletonCard, SkeletonStats } from '../components/Skeleton';
-import { Loader2, Zap, BookOpen, AlertTriangle, Plus, BarChart3, ListTodo } from 'lucide-react';
+import { Loader2, Zap, BookOpen, AlertTriangle, Plus, BarChart3, ListTodo, UserCircle } from 'lucide-react';
 
 const StudentDashboard = () => {
     const { user, logout } = useAuth();
@@ -129,16 +129,23 @@ const StudentDashboard = () => {
                             className="bg-purple-100 text-purple-700 px-3 py-1.5 rounded-md text-sm flex items-center gap-1 hover:bg-purple-200 transition-colors"
                         >
                             <BarChart3 size={16} />
-                            <span className="hidden sm:inline">Analytics</span>
+                            Analytics
+                        </button>
+                        <button
+                            onClick={() => window.location.href = '/student/profile'}
+                            className="bg-academic-100 text-academic-700 px-3 py-1.5 rounded-md text-sm flex items-center gap-1 hover:bg-academic-200 transition-all hover:scale-105"
+                        >
+                            <UserCircle size={16} />
+                            Profile
                         </button>
                         <button
                             onClick={() => setShowTaskInput(true)}
-                            className="bg-academic-900 text-white px-3 py-1.5 rounded-md text-sm flex items-center gap-1 hover:bg-academic-800 transition-colors"
+                            className="bg-sage-700 text-white px-3 py-1.5 rounded-md text-sm flex items-center gap-1 hover:bg-sage-800 transition-all hover:scale-105 hover:shadow-md"
                         >
                             <Plus size={16} />
-                            <span className="hidden sm:inline">Add Task</span>
+                            Add Task
                         </button>
-                        <button onClick={logout} className="text-sm text-academic-500 hover:text-red-600">Logout</button>
+                        <button onClick={logout} className="text-sm text-academic-500 hover:text-red-600 transition-colors">Logout</button>
                     </div>
                 </div>
             </header>
