@@ -3,7 +3,8 @@ import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import api from '../utils/api';
 import MessageModal from '../components/MessageModal';
-import { Loader2, AlertCircle, CheckCircle, HelpCircle, MessageSquare } from 'lucide-react';
+import EmptyState from '../components/EmptyState';
+import { Loader2, AlertCircle, CheckCircle, HelpCircle, MessageSquare, Users } from 'lucide-react';
 import clsx from 'clsx';
 
 const TeacherDashboard = () => {

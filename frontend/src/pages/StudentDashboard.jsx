@@ -6,7 +6,8 @@ import StressInput from '../components/StressInput';
 import TaskCard from '../components/TaskCard';
 import TaskInput from '../components/TaskInput';
 import ProgressStats from '../components/ProgressStats';
-import { Loader2, Zap, BookOpen, AlertTriangle, Plus, BarChart3 } from 'lucide-react';
+import EmptyState from '../components/EmptyState';
+import { Loader2, Zap, BookOpen, AlertTriangle, Plus, BarChart3, ListTodo } from 'lucide-react';
 
 const StudentDashboard = () => {
     const { user, logout } = useAuth();
@@ -171,17 +172,28 @@ const StudentDashboard = () => {
                         <BookOpen size={18} />
                         All Assignments
                     </h2>
-                    <div className="space-y-3 opacity-80">
-                        {tasks?.filter(t => !recoveryPlan?.recommendedTasks?.find(rt => rt._id === t._id)).map(task => (
-                            <TaskCard
-                                key={task._id}
-                                task={task}
-                                onComplete={handleCompleteTask}
-                                onEdit={handleEditTask}
-                                onDelete={handleDeleteTask}
-                            />
-                        ))}
-                    </div>
+                    {tasks?.length === 0 ? (
+                        <EmptyState
+                            icon={ListTodo}
+                            title="No Tasks Yet"
+                            message="Start by adding your first task! Track assignments, set deadlines, and let our AI help you prioritize your workload."
+                            actionText="Add Your First Task"
+                            onAction={() => setShowTaskInput(true)}
+                            variant="primary"
+                        />
+                    ) : (
+                        <div className="space-y-3 opacity-80">
+                            {tasks?.filter(t => !recoveryPlan?.recommendedTasks?.find(rt => rt._id === t._id)).map(task => (
+                                <TaskCard
+                                    key={task._id}
+                                    task={task}
+                                    onComplete={handleCompleteTask}
+                                    onEdit={handleEditTask}
+                                    onDelete={handleDeleteTask}
+                                />
+                            ))}
+                        </div>
+                    )}
                 </section>
             </main>
 
