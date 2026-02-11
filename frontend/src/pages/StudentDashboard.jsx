@@ -265,6 +265,21 @@ const StudentDashboard = () => {
                     </div>
                 </div>
 
+                {/* Progress Stats - shown when progress button is clicked */}
+                {showProgress && recoveryPlan && (
+                    <section className="bg-white border border-academic-200 p-4 rounded-lg animate-fadeIn">
+                        <div className="flex items-center justify-between mb-4">
+                            <h2 className="font-serif font-bold text-academic-800">Your Progress</h2>
+                            <button
+                                onClick={() => setShowProgress(false)}
+                                className="text-sm text-academic-500 hover:text-academic-700"
+                            >
+                                Hide
+                            </button>
+                        </div>
+                        <ProgressStats tasks={recoveryPlan.tasks || []} />
+                    </section>
+                )}
 
                 {/* Status Section */}
                 {recoveryPlan && (

@@ -25,19 +25,21 @@ const AdminDashboard = () => {
             // In a real app, you'd have an admin endpoint
             // For now, we'll simulate with available data
             setStats({
-                totalUsers: 18,
-                students: 13,
+                totalUsers: 8,
+                students: 3,
                 teachers: 4,
-                highRisk: 2
+                highRisk: 1
             });
             setUsers([
-                // Students
+                // Students (matching TeacherDashboard demo data)
                 { _id: '1', name: 'Alex Johnson', email: 'alex.johnson@student.edu', role: 'student' },
                 { _id: '2', name: 'Sarah Martinez', email: 'sarah.martinez@student.edu', role: 'student' },
                 { _id: '3', name: 'Michael Chen', email: 'michael.chen@student.edu', role: 'student' },
                 // Teachers
                 { _id: '4', name: 'Dr. Emily Roberts', email: 'emily.roberts@teacher.edu', role: 'teacher' },
-                { _id: '5', name: 'Prof. James Wilson', email: 'james.wilson@teacher.edu', role: 'teacher' }
+                { _id: '5', name: 'Prof. James Wilson', email: 'james.wilson@teacher.edu', role: 'teacher' },
+                { _id: '6', name: 'Dr. Sarah Anderson', email: 'sarah.anderson@teacher.edu', role: 'teacher' },
+                { _id: '7', name: 'Prof. David Lee', email: 'david.lee@teacher.edu', role: 'teacher' }
             ]);
         } catch (error) {
             console.error(error);
