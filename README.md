@@ -1,6 +1,7 @@
 # REBOUND: Personalized Academic Recovery Engine
 
 **Problem Statement ID:** PS03 - Academic Recovery & Mental Wellness
+**Team:** Couch Potato
 
 ---
 
