@@ -125,7 +125,7 @@ const StudentDashboard = () => {
 
                 {/* Status Section */}
                 {recoveryPlan && (
-                    <section className="bg-sage-50 border border-sage-200 p-4 rounded-lg">
+                    <section className="bg-sage-50 border border-sage-200 p-4 rounded-lg animate-slideUp">
                         <div className="flex items-center gap-3 mb-2">
                             <Zap className="text-sage-600" size={20} />
                             <h2 className="font-serif font-bold text-sage-800">Recovery Strategy</h2>

@@ -33,7 +33,7 @@ const ProgressStats = () => {
     })).reverse().slice(0, 14); // Last 14 days
 
     return (
-        <div className="bg-white border border-academic-200 rounded-lg p-6 space-y-6">
+        <div className="bg-white border border-academic-200 rounded-lg p-6 space-y-6 animate-fadeInDown">
             <h2 className="text-lg font-serif font-bold text-academic-800">Your Progress</h2>
 
             {/* Stats Grid */}
