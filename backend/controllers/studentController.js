@@ -371,6 +371,7 @@ Provide helpful, encouraging, and actionable advice. Be concise and supportive.
         // Simple AI response (you can integrate OpenAI API here)
         // For now, using rule-based responses for demo
         let response = generateSmartResponse(message, {
+            name: req.user.name.split(' ')[0],
             pendingTasks: pendingTasks.length,
             overdueTasks: overdueTasks.length,
             stressLevel: recentLog?.stressLevel || 5,
@@ -418,8 +419,35 @@ const generateSmartResponse = (message, context) => {
         return `I believe in you! Here's why you CAN do this:\n\n✨ You're already taking action by asking for help\n✨ Every expert was once a beginner\n✨ Small steps lead to big achievements\n✨ You've overcome challenges before\n\nTake it one task at a time. You're stronger than you think! 💪🌟`;
     }
 
+    // --- NEW PATTERNS ---
+
+    // Greeting / Start
+    if (msg.includes('hi') || msg.includes('hello') || msg.includes('hey')) {
+        return `Hi ${context.name}! 👋 I'm ready to help you bounce back.\n\nWe sort tasks by **Stress Level**, not just due dates. How are you feeling today?`;
+    }
+
+    // "How does this app work?"
+    if (msg.includes('how') && (msg.includes('work') || msg.includes('app') || msg.includes('help'))) {
+        return `REBOUND is different because we care about your mental health 🧠.\n\n1. **We breakdown tasks** so they aren't scary.\n2. **We track your stress** to prevent burnout.\n3. **We talk to teachers** if you're struggling.\n\nCheck your Dashboard for your "Recovery Plan"!`;
+    }
+
+    // "I am tired" / Burnout
+    if (msg.includes('tired') || msg.includes('burnout') || msg.includes('sleep') || msg.includes('exhaust')) {
+        return `It sounds like you need a **Recovery Break**. 🛑\n\nScience says pushing through burnout lowers grades. \n\n**Action Plan:**\n1. Close this tab.\n2. Sleep or walk for 20 mins.\n3. Come back and do ONE small task.\n\nI'll be here when you're ready.`;
+    }
+
+    // "My grades are bad"
+    if (msg.includes('grade') || msg.includes('fail') || msg.includes('score') || msg.includes('bad')) {
+        return `One bad grade doesn't define you. 📉 ➡️ 📈\n\nUse the **Grade Simulator** on your dashboard to see how to recover. \n\nEven a 1% improvement is progress. Let's focus on the next assignment, not the last one.`;
+    }
+
+    // "Thank you"
+    if (msg.includes('thank') || msg.includes('thanks') || msg.includes('good bot')) {
+        return `You're welcome! 🤖💙\n\nRemember, YOU are the one doing the hard work. I'm just the cheerleader. Keep going!`;
+    }
+
     // Default helpful response
-    return `I'm here to help you succeed! I can assist with:\n\n📚 Study strategies and techniques\n⏰ Time management and prioritization\n😌 Stress management tips\n🎯 Task breakdown and planning\n💪 Motivation and encouragement\n\nWhat would you like to focus on? Feel free to ask me anything!`;
+    return `I'm listening! I can help with:\n\n📚 **Study Strategies** (Pomodoro, Active Recall)\n🤯 **Stress Management** (Breaks, Mindfulness)\n⏰ **Time Management** (Prioritization)\n\nTry asking: "I am stressed" or "How do I study for math?"`;
 };
 
 module.exports = {
