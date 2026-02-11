@@ -129,12 +129,19 @@ const TeacherDashboard = () => {
                 <h2 className="text-2xl font-serif font-bold text-academic-800 mb-6">Student Risk Overview</h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                    {students.map(student => (
-                        <div key={student._id} className="bg-white p-4 sm:p-6 rounded-lg shadow-sm border border-academic-200">
-                            <div className="flex justify-between items-start mb-4">
+                    {students.map((student, idx) => (
+                        <div
+                            key={student._id}
+                            className={clsx(
+                                "bg-white border rounded-lg p-4 hover:shadow-md transition-all",
+                                student.riskLevel === 'Critical' || student.riskLevel === 'High' ? 'border-red-300 animate-pulse-glow' : 'border-academic-200'
+                            )}
+                            style={{ animationDelay: `${idx * 0.1}s` }}
+                        >
+                            <div className="flex justify-between items-start mb-3">
                                 <div>
-                                    <h3 className="font-bold text-lg text-academic-900">{student.name}</h3>
-                                    <p className="text-sm text-academic-500">{student.email}</p>
+                                    <h3 className="font-bold text-academic-800">{student.name}</h3>
+                                    <p className="text-xs text-academic-500">{student.email}</p>
                                 </div>
                                 <div className="flex items-center gap-1">
                                     <span className={clsx("px-2 py-1 rounded text-xs font-bold border", getRiskColor(student.riskLevel))}>

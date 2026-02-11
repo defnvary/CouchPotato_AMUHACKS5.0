@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Brain, TrendingUp, Users, Target, Sparkles, BarChart3, Shield, Zap } from 'lucide-react';
+import CountUp from '../components/CountUp';
 
 const LandingPage = () => {
     return (
@@ -148,15 +149,21 @@ const LandingPage = () => {
                 <div className="max-w-6xl mx-auto px-4 sm:px-6">
                     <div className="grid md:grid-cols-3 gap-8 text-center">
                         <div className="animate-fadeInDown">
-                            <div className="text-5xl font-bold mb-2">85%</div>
+                            <div className="text-5xl font-bold mb-2">
+                                <CountUp end={85} suffix="%" />
+                            </div>
                             <div className="text-sage-200">Reduction in Academic Stress</div>
                         </div>
                         <div className="animate-fadeInDown" style={{ animationDelay: '0.1s' }}>
-                            <div className="text-5xl font-bold mb-2">92%</div>
+                            <div className="text-5xl font-bold mb-2">
+                                <CountUp end={92} suffix="%" />
+                            </div>
                             <div className="text-sage-200">Task Completion Rate</div>
                         </div>
                         <div className="animate-fadeInDown" style={{ animationDelay: '0.2s' }}>
-                            <div className="text-5xl font-bold mb-2">4.8/5</div>
+                            <div className="text-5xl font-bold mb-2">
+                                <CountUp end={4.8} suffix="/5" />
+                            </div>
                             <div className="text-sage-200">Student Satisfaction</div>
                         </div>
                     </div>

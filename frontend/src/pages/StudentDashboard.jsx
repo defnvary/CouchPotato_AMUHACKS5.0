@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import api from '../utils/api';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
+import { celebrateTaskCompletion } from '../utils/confetti';
 import StressInput from '../components/StressInput';
 import TaskCard from '../components/TaskCard';
 import TaskInput from '../components/TaskInput';
@@ -59,9 +60,12 @@ const StudentDashboard = () => {
     const handleCompleteTask = async (taskId) => {
         try {
             await api.put(`/student/task/${taskId}/complete`);
+            celebrateTaskCompletion(); // 🎉 Confetti!
+            success('Task completed! Great work! 🎉');
             fetchDashboard();
         } catch (error) {
             console.error(error);
+            showError('Failed to complete task');
         }
     };
 

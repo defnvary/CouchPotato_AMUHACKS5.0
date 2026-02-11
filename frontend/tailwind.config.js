@@ -65,12 +65,17 @@ export default {
                     '0%': { transform: 'translateY(-10px)', opacity: '0' },
                     '100%': { transform: 'translateY(0)', opacity: '1' },
                 },
+                'pulse-glow': {
+                    '0%, 100%': { boxShadow: '0 0 0 0 rgba(239, 68, 68, 0.4)' },
+                    '50%': { boxShadow: '0 0 0 8px rgba(239, 68, 68, 0)' },
+                },
             },
             animation: {
                 'slide-in-right': 'slide-in-right 0.3s ease-out',
                 'fadeIn': 'fadeIn 0.2s ease-out',
                 'slideUp': 'slideUp 0.4s ease-out',
                 'fadeInDown': 'fadeInDown 0.3s ease-out',
+                'pulse-glow': 'pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
             },
         },
     },
