@@ -10,10 +10,10 @@ const protect = async (req, res, next) => {
     ) {
         try {
             token = req.headers.authorization.split(' ')[1];
-            console.log('🔐 Token received:', token.substring(0, 20) + '...');
+
 
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            console.log('✅ Token decoded, user ID:', decoded.id);
+
 
             // Attach user to request, exclude password
             req.user = await User.findById(decoded.id).select('-password');
@@ -24,7 +24,7 @@ const protect = async (req, res, next) => {
                 throw new Error('Not authorized, user not found');
             }
 
-            console.log('✅ User authenticated:', req.user.email, 'Role:', req.user.role);
+
             next();
         } catch (error) {
             console.error('❌ Auth error:', error.message);

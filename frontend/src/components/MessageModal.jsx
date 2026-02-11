@@ -30,7 +30,7 @@ const MessageModal = ({ student, onClose, onSent }) => {
                 type
             });
 
-            console.log('✅ Message sent successfully:', response.data);
+
             onSent?.();
             onClose();
         } catch (error) {

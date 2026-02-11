@@ -34,7 +34,7 @@ const TeacherDashboard = () => {
 
         // Auto-refresh every 30 seconds
         const interval = setInterval(() => {
-            console.log('🔄 Auto-refreshing student data...');
+
             fetchStudents();
         }, 30000);
 

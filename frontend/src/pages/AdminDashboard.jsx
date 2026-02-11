@@ -21,7 +21,7 @@ const AdminDashboard = () => {
 
         // Auto-refresh every 30 seconds
         const interval = setInterval(() => {
-            console.log('🔄 Auto-refreshing admin data...');
+
             fetchData();
         }, 30000);
 

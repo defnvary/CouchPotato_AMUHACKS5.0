@@ -29,11 +29,11 @@ const loginUser = async (req, res) => {
 
     const user = await User.findOne({ email });
 
-    console.log(`Login attempt for: ${email}`);
+
     if (user) {
-        console.log(`User found: ${user.name}`);
+
         const isMatch = await user.matchPassword(password);
-        console.log(`Password match result: ${isMatch}`);
+
 
         if (isMatch) {
             res.json({
@@ -46,7 +46,7 @@ const loginUser = async (req, res) => {
             return;
         }
     } else {
-        console.log('User not found');
+
     }
 
     res.status(401);
