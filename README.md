@@ -51,7 +51,7 @@ Students today face a dual crisis: **Overwhelming Academics** and **Mental Healt
 
 1.  **Clone the repository**
     ```bash
-    git clone https://github.com/Sarthak816/rebound.git
+    git clone https://github.com/Sarthak816/CouchPotato_AMUHACKS5.0.git
     cd rebound
     ```
 
